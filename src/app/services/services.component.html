@@ -1,0 +1,23 @@
+<div class="services-section">
+    <div class="non-card-item">Categories</div>
+    <div class="card-item" *ngFor="let service of services">
+        <nz-card nzHoverable [nzBordered]="false" 
+        (click)="openFindReplaceModal(service.functionName)">
+                <nz-icon style="font-size: 40px;" twoToneColor="white" nzType="minus-circle" nzTheme="twotone" />
+                <p class="card-heading">{{service.serviceName}} &nbsp; <span *ngIf="!service.active" class="status">(Coming Soon)</span></p>
+                <div class="card-content">
+                    <p class="card-short-desc">{{service.serviceShortDesc}}</p>
+                    <div class="card-features-container">
+                        <div class="card-features" *ngFor="let feature of service.features">
+                            <button nz-button [nzSize]="featureSize" nzShape="round">
+                                <nz-icon [nzType]="service.icon" nzTheme="fill" />
+                                {{ feature }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        </nz-card>
+    </div>
+</div>
+
+<app-service-find-replace [findAndReplaceModal]="openFindReplace" (findAndReplaceClosed)="openFindReplace = false;"></app-service-find-replace>

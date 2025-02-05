@@ -1,0 +1,89 @@
+.inner-layout {
+    background: #fff;
+}
+
+.sider-menu {
+    height: 100%;
+}
+
+.inner-content1 {
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.inner-content2{
+    width: 100%;
+    height: 35vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.grid-config {
+    height: 35vw;
+    font-size: 14px;
+    background: white;
+    border-radius: 4px;
+}
+
+.full-width-height {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .full-width-height textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    box-sizing: border-box;
+  }
+
+  .text-val{
+    padding: 8px;
+    padding-left: 20px;
+    color: grey
+  }
+
+  p span.highlight {
+    background-color: yellow !important;
+    color: black;
+    font-weight: bold;
+    padding: 2px;
+    border-radius: 3px;
+  }
+
+  .selected-btn{
+    border: 1px solid black;
+    background: black;
+    color: white;
+    padding: 2px;
+  }
+
+  .unselected-btn{
+    border: none;
+    background: white;
+    color: black;
+    padding: 2px;
+  }
+
+  .selected-btn-instant {
+    transition: transform 0.1s ease-in-out;
+  }
+  
+  .selected-btn-instant.clicked {
+    transform: scale(0.9);
+  }
+  
+  .selected-btn-instant:hover {
+    background: black;
+    color: white;
+    padding: 2px;
+  }
+
+  ::ng-deep mark {
+    background-color: yellow !important; /* Custom background color */
+    color: black; /* Optional: Change text color */
+  }

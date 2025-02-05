@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+.ant-btn:focus, .ant-btn:hover {
+    color: black;
+    border-color: black;
+}
+
+.ant-modal-header {
+    border-radius: 10px;
+}
+
+.ant-modal-content  {
+    border-radius: 10px;
+}
+
+.ant-input-affix-wrapper{
+    width: 40%;
+}

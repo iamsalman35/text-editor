@@ -1,0 +1,19 @@
+.navigation-bar{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: end;
+}
+
+.navbar-heading{
+  height: 5rem;
+  font-size: xx-large;
+  font-weight: 500;
+  color: black;
+  width: 20rem;
+  margin: 30px;
+}
+
+.explore-nav{
+  margin-left: 30rem;
+}

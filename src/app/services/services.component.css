@@ -1,0 +1,47 @@
+.services-section{
+    display: flex;
+    margin: 10%;
+    flex-direction: row;
+}
+
+.non-card-item{
+    font-weight: bold;
+    padding-right: 5rem;
+}
+
+.ant-card{
+    width: 400px; 
+    height: 400px;
+    border-radius: 30px;
+    margin-right: 3rem;
+    background: linear-gradient(135deg, #dbe6f0, #f8f8f8); 
+}
+
+.ant-card:hover{
+    background: black;
+    opacity: 0.8;
+    color: white;
+}
+
+.status{
+    font-size: 15px;
+    color: #d20000;
+}
+
+.card-heading{
+    font-size: 30px;
+}
+
+.card-content{
+    padding-top: 120px;
+}
+
+.card-features-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; 
+}
+
+.card-features {
+    display: flex;
+}
