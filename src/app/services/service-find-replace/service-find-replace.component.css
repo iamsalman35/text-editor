@@ -1,89 +1,211 @@
 .inner-layout {
-    background: #fff;
+  background: #fff;
 }
 
 .sider-menu {
-    height: 100%;
+  height: 100%;
+  background: #fff;
 }
 
 .inner-content1 {
-    padding: 0 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border-radius: 10px;
 }
 
-.inner-content2{
-    width: 100%;
-    height: 35vw;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+.inner-content2 {
+  width: 100%;
+  height: 35vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
 }
 
 .grid-config {
-    height: 35vw;
-    font-size: 14px;
-    background: white;
-    border-radius: 4px;
+  height: 35vw;
+  font-size: 14px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
 }
 
 .full-width-height {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.full-width-height textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  box-sizing: border-box;
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f4f4f4;
+}
+
+.text-val {
+  padding: 8px;
+  padding-left: 20px;
+  color: grey;
+}
+
+p span.highlight {
+  background-color: #f1e5a8 !important;
+  color: black;
+  font-weight: bold;
+  padding: 2px;
+  border-radius: 3px;
+}
+
+.selected-btn {
+  border: 1px solid black;
+  background: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.selected-btn:hover {
+  background-color: #333;
+  border-color: #333;
+}
+
+.unselected-btn {
+  border: 1px solid #ccc;
+  background: white;
+  color: #333;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: normal;
+  transition: background-color 0.3s ease;
+}
+
+.unselected-btn:hover {
+  background: #f1f1f1;
+}
+
+.selected-btn-instant {
+  transition: transform 0.1s ease-in-out;
+  background: black;
+  color: white;
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.selected-btn-instant.clicked {
+  transform: scale(0.9);
+}
+
+.selected-btn-instant:hover {
+  background: #333;
+  color: white;
+}
+
+::ng-deep mark {
+  background-color: #f1e5a8 !important;
+  color: black;
+}
+
+.nz-modal {
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 95vw; /* Max width for small screens */
+  width: 80vw;
+}
+
+.nz-modal-content {
+  padding: 20px;
+}
+
+.nz-input-group {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.nz-input {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.nz-input input {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.nz-sider {
+  background: #ffffff;
+  border-right: 1px solid #e1e1e1;
+}
+
+@media (max-width: 768px) {
+  .inner-content2 {
+      flex-direction: column;
+      height: auto; /* Allow flexible height on smaller screens */
   }
-  
+
+  .grid-config {
+      height: auto;
+      font-size: 12px; /* Reduce font size on mobile */
+      margin-bottom: 15px;
+  }
+
   .full-width-height textarea {
-    width: 100%;
-    height: 100%;
-    resize: none;
-    box-sizing: border-box;
+      font-size: 14px;
+      padding: 8px;
   }
 
-  .text-val{
-    padding: 8px;
-    padding-left: 20px;
-    color: grey
+  .text-val {
+      font-size: 12px; /* Make text smaller for mobile */
   }
 
-  p span.highlight {
-    background-color: yellow !important;
-    color: black;
-    font-weight: bold;
-    padding: 2px;
-    border-radius: 3px;
+  .selected-btn, .unselected-btn, .selected-btn-instant {
+      font-size: 14px; /* Smaller button text */
+      padding: 4px 8px;
   }
 
-  .selected-btn{
-    border: 1px solid black;
-    background: black;
-    color: white;
-    padding: 2px;
+  .inner-content1 {
+      padding: 10px;
   }
 
-  .unselected-btn{
-    border: none;
-    background: white;
-    color: black;
-    padding: 2px;
+  .nz-modal {
+      width: 90vw; /* Increase width on small screens */
+      max-width: 90vw; /* Prevent overflow */
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-config {
+      height: auto;
+      font-size: 12px;
+      margin-bottom: 10px;
   }
 
-  .selected-btn-instant {
-    transition: transform 0.1s ease-in-out;
-  }
-  
-  .selected-btn-instant.clicked {
-    transform: scale(0.9);
-  }
-  
-  .selected-btn-instant:hover {
-    background: black;
-    color: white;
-    padding: 2px;
+  .full-width-height textarea {
+      font-size: 14px;
+      padding: 6px;
   }
 
-  ::ng-deep mark {
-    background-color: yellow !important; /* Custom background color */
-    color: black; /* Optional: Change text color */
+  .selected-btn, .unselected-btn, .selected-btn-instant {
+      font-size: 12px;
+      padding: 4px 6px;
   }
+
+  .text-val {
+      font-size: 10px; /* Make text smaller for very small screens */
+  }
+
+  .inner-layout {
+      padding: 10px;
+  }
+}
