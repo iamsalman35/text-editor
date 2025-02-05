@@ -38,7 +38,7 @@
               <nz-content>
                 <div nz-row [nzGutter]="[1, 50]"> 
                   <div nz-col class="gutter-row" [nzSpan]="12">
-                    <div class="grid-config">
+                    <div style="border: 1px solid lightgrey;" class="grid-config">
                       <nz-input-group [nzSuffix]="textAreaClearTpl" class="full-width-height">
                         <textarea nz-input [(ngModel)]="textValue" (ngModelChange)="getUpdatedString()" placeholder="Enter your text"></textarea>
                       </nz-input-group>
