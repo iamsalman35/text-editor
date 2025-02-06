@@ -4,7 +4,7 @@
         <nz-card nzHoverable [nzBordered]="false" 
         (click)="openFindReplaceModal(service.functionName)">
                 <nz-icon style="font-size: 40px;" twoToneColor="white" [nzType]="service.icon" nzTheme="twotone" />
-                <p class="card-heading">{{service.serviceName}} &nbsp; <span *ngIf="!service.active" class="status"><br>(Sample Placeholder)</span></p>
+                <p class="card-heading">{{service.serviceName}} &nbsp; <span *ngIf="!service.active" class="status">(Placeholder)</span></p>
                 <div class="card-content">
                     <p class="card-short-desc">{{service.serviceShortDesc}}</p>
                     <div class="card-features-container">
