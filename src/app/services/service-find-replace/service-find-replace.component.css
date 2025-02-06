@@ -214,3 +214,8 @@ p span.highlight {
   border: 1px solid lightgrey;
   overflow-y: auto
 }
+
+.word-count{
+  position: fixed;
+  margin-top: 29rem;
+}

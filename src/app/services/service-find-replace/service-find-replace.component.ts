@@ -107,5 +107,5 @@ export class ServiceFindReplaceComponent {
     return modifiedText;
   }
   
-  
+  // TEST REGEX: ([A-Z])\w+
 }
