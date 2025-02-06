@@ -1,66 +1,76 @@
-<nz-modal [(nzVisible)]="findAndReplaceModal" nzTitle="Find & Replace Tool" nzWidth="80vw" [nzBodyStyle]="{ height: '50vh', padding: '20px' }" nzCentered (nzOnCancel)="closeModal()" (nzOnOk)="closeModal()">
+<nz-modal [(nzVisible)]="findAndReplaceModal" nzTitle="Find & Replace Tool" nzWidth="80vw"
+  [nzBodyStyle]="{ height: '60vh', padding: '20px' }" nzCentered (nzOnCancel)="closeModal()" (nzOnOk)="closeModal()">
   <ng-container class="modal-content" *nzModalContent>
-    <nz-layout>
-        <nz-layout class="inner-layout">
-          <nz-sider nzWidth="200px" nzTheme="light">
-            <ul nz-menu nzMode="inline" class="sider-menu">
-              <li nz-submenu nzOpen nzTitle="History" nzIcon="user">
-                <ul *ngFor="let history of histories">
-                  <li nz-menu-item (click)="showHistory(history)">{{history.timeStamp}}</li>
-                </ul>
-              </li>
+    <nz-layout class="inner-layout">
+      <nz-sider nzWidth="200px" nzTheme="light">
+        <ul nz-menu nzMode="inline" class="sider-menu">
+          <li nz-submenu nzOpen nzTitle="History" nzIcon="user">
+            <ul *ngFor="let history of histories">
+              <li nz-menu-item (click)="showHistory(history)">{{history.timeStamp}}</li>
             </ul>
-          </nz-sider>
-          <nz-content class="inner-content1">
-            <nz-input-group [nzSuffix]="suffixFind">
-              <input type="text" [(ngModel)]="findWord" nz-input placeholder="Find Exact/Find All" />
-            </nz-input-group>
-            <ng-template #suffixFind>
-              <nz-icon nz-tooltip nzTooltipTitle="Regular Expression" (click)="findRegEx = !findRegEx; findExact = false" [ngClass]="findRegEx ? 'selected-btn' : 'unselected-btn'" nzType="field-string" nzTheme="outline" />
-              <nz-icon nz-tooltip nzTooltipTitle="Find Exact + Case Sensitive" [ngClass]="findExact ? 'selected-btn' : 'unselected-btn'" (click)="findExact = !findExact; findRegEx = false" nzType="font-colors" />
-            </ng-template>
-            <nz-input-group [nzSuffix]="suffixReplace">
-              <input type="text" [(ngModel)]="replaceWord" nz-input placeholder="Replace All Occurences" />
-            </nz-input-group>
-            <ng-template #suffixReplace>
-              <nz-icon nz-tooltip nzTooltipTitle="Replace All" class="selected-btn-instant" (click)="replaceText()" nzType="double-right" />
-            </ng-template>
-            <nz-layout class="inner-content2">
-              <nz-content>
-                <div nz-row [nzGutter]="[1, 50]"> 
-                  <div nz-col class="gutter-row" [nzSpan]="12">
-                    <div style="border: 1px solid lightgrey;" class="grid-config">
-                      <nz-input-group [nzSuffix]="textAreaClearTpl" class="full-width-height">
-                        <textarea nz-input [(ngModel)]="textValue" (ngModelChange)="this.updatedText = this.textValue;" placeholder="Enter your text"></textarea>
-                      </nz-input-group>
-                      <ng-template #textAreaClearTpl>
-                        <span *ngIf="textValue" nz-icon class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle" (click)="textValue = null"></span>
-                      </ng-template>
-                    </div>
-                  </div>
-                  
-                  <div nz-col class="gutter-row" [nzSpan]="12">
-                    <div class="grid-config updated-text-section">
-                      <ng-container *ngIf="!textValue; else elseBlock">
-                        <p class="text-val">Please enter some text on the left to continue.</p>
-                      </ng-container>
-                      <ng-template #elseBlock>
-                        <p class="text-val" id="updated-text" [innerHTML]="findText()"></p>
-                      </ng-template>
-                    </div>
-                  </div>
-                </div>
-              </nz-content>
-              <div class="word-count">Word Count: {{wordOccurrences}}</div>            
-            </nz-layout>
-          </nz-content>
-        </nz-layout>
+          </li>
+        </ul>
+      </nz-sider>
+
+        <nz-content class="inner-header">
+          <nz-input-group [nzSuffix]="suffixFind">
+            <input type="text" [(ngModel)]="findWord" nz-input placeholder="Find Exact/Find All" />
+          </nz-input-group>
+          <ng-template #suffixFind>
+            <nz-icon nz-tooltip nzTooltipTitle="Regular Expression" (click)="findRegEx = !findRegEx; findExact = false"
+              [ngClass]="findRegEx ? 'selected-btn' : 'unselected-btn'" nzType="field-string" nzTheme="outline" />
+            <nz-icon nz-tooltip nzTooltipTitle="Find Exact + Case Sensitive"
+              [ngClass]="findExact ? 'selected-btn' : 'unselected-btn'"
+              (click)="findExact = !findExact; findRegEx = false" nzType="font-colors" />
+          </ng-template>
+          <nz-input-group [nzSuffix]="suffixReplace">
+            <input type="text" [(ngModel)]="replaceWord" nz-input placeholder="Replace All Occurences" />
+          </nz-input-group>
+          <ng-template #suffixReplace>
+            <nz-icon nz-tooltip nzTooltipTitle="Replace All" class="selected-btn-instant" (click)="replaceText()"
+              nzType="double-right" />
+          </ng-template>
+        </nz-content>
+
     </nz-layout>
+
+    <nz-layout class="inner-main-body">
+        <nz-content>
+          <div nz-row [nzGutter]="[1, 50]">
+            <div nz-col class="gutter-row" [nzSpan]="12">
+              <div style="border: 1px solid lightgrey;" class="grid-config">
+                <nz-input-group [nzSuffix]="textAreaClearTpl" class="full-width-height">
+                  <textarea nz-input [(ngModel)]="textValue" (ngModelChange)="this.updatedText = this.textValue;"
+                    placeholder="Enter your text"></textarea>
+                </nz-input-group>
+                <ng-template #textAreaClearTpl>
+                  <span *ngIf="textValue" nz-icon class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle"
+                    (click)="textValue = null"></span>
+                </ng-template>
+              </div>
+            </div>
+
+            <div nz-col class="gutter-row" [nzSpan]="12">
+              <div class="grid-config updated-text-section">
+                <ng-container *ngIf="!textValue; else elseBlock">
+                  <p class="text-val">Please enter some text on the left to continue.</p>
+                </ng-container>
+                <ng-template #elseBlock>
+                  <p class="text-val" id="updated-text" [innerHTML]="findText()"></p>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </nz-content>
+        <nz-content class="word-count">Word Count: {{wordOccurrences}}</nz-content>
+    </nz-layout>
+
   </ng-container>
 </nz-modal>
 
 
-<nz-modal [(nzVisible)]="historyModal" [nzTitle]="historyDate" nzCentered (nzOnCancel)="closeModal('history')" (nzOnOk)="closeModal('history')">
+<nz-modal [(nzVisible)]="historyModal" [nzTitle]="historyDate" nzCentered (nzOnCancel)="closeModal('history')"
+  (nzOnOk)="closeModal('history')">
   <ng-container *nzModalContent>
     <h4 nz-typography>Original Text: </h4>
     <p nz-typography nzCopyable [(nzContent)]="historyOriginalText"></p>
