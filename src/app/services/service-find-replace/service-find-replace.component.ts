@@ -8,8 +8,11 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { History } from '../utils';
+import { historiesSubscription } from '../utils';
 
 @Component({
   selector: 'app-service-find-replace',
@@ -25,6 +28,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     NzIconModule,
     NzGridModule,
     NzToolTipModule,
+    NzTypographyModule
   ],
   templateUrl: './service-find-replace.component.html',
   styleUrl: './service-find-replace.component.css',
@@ -41,13 +45,25 @@ export class ServiceFindReplaceComponent {
   updatedText: string | null = null;
   @Input() findAndReplaceModal = false;
   @Output() findAndReplaceClosed: EventEmitter<any> = new EventEmitter();
+  histories: History[];
+  historyModal: boolean = false;
+  historyOriginalText: string | undefined = undefined;
+  historyUpdatedText: string | undefined = undefined;
+  historyDate: string | undefined = undefined;
+  
+  constructor(private sanitizer: DomSanitizer) {
+    this.histories = historiesSubscription;
+  }
 
-  constructor(private sanitizer: DomSanitizer) {}
-
-  closeModal(): void {
-    this.findAndReplaceModal = false;
-    this.clearForm();
-    this.findAndReplaceClosed.emit();
+  closeModal(modal?: string): void {
+    if(modal === 'history'){
+      this.historyModal = false;
+    }
+    else{
+      this.findAndReplaceModal = false;
+      this.clearForm();
+      this.findAndReplaceClosed.emit();
+    }
   }
 
   getUpdatedString() {
@@ -65,6 +81,11 @@ export class ServiceFindReplaceComponent {
       }, 300);
     }
     if (this.findWord && this.updatedText) {
+      this.histories = [...this.histories, {
+        originalText: this.textValue,
+        updatedText: this.updatedText,
+        timeStamp: new Date(Date.now()).toISOString().replace('T', ' ').substring(0, 16),
+      }]
       let modifiedText = this.updatedText;
       let regex;
       regex = this.findRegEx? new RegExp(this.findWord, 'g'): this.findExact? new RegExp(`\\b${this.findWord}\\b`, 'g'): new RegExp(this.findWord, 'gi');
@@ -92,6 +113,7 @@ export class ServiceFindReplaceComponent {
       const regex = this.findExact? new RegExp(`\\b${this.findWord}\\b`, 'g'): new RegExp(this.findWord, 'gi');
 
       return (modifiedText = modifiedText.replace(regex, (match, offset) => {
+        this.wordOccurrences++;
         return this.highlightFindAndReplaceAll(match);
       }));
   }
@@ -100,6 +122,7 @@ export class ServiceFindReplaceComponent {
     if(!this.findWord){ return ""; }
     const regex = new RegExp(this.findWord, 'g');
     return (modifiedText = modifiedText.replace(regex, (match, offset) => {
+      this.wordOccurrences++;
       return this.highlightFindAndReplaceAll(match);
     }));
   }
@@ -109,7 +132,6 @@ export class ServiceFindReplaceComponent {
     if (!this.updatedText) return '';
 
     let modifiedText = this.updatedText;
-
       if (this.findWord) {
         if (!this.findRegEx) {
           modifiedText = this.findWithoutRegEx(modifiedText);
@@ -120,12 +142,17 @@ export class ServiceFindReplaceComponent {
     return this.sanitizer.bypassSecurityTrustHtml(modifiedText);
   }
 
+  showHistory(history: any){
+    this.historyModal = true;
+    this.historyOriginalText = history.originalText;
+    this.historyUpdatedText = history.updatedText;
+    this.historyDate = history.timeStamp;
+  }
+
   clearForm(){
     this.textValue = null;
     this.updatedText = null;
     this.findWord = null;
     this.replaceWord = null;
   }
-
-  // TEST REGEX: ([A-Z])\w+
 }

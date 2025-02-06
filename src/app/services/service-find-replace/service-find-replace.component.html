@@ -5,15 +5,8 @@
           <nz-sider nzWidth="200px" nzTheme="light">
             <ul nz-menu nzMode="inline" class="sider-menu">
               <li nz-submenu nzOpen nzTitle="History" nzIcon="user">
-                <ul>
-                  <li nz-menu-item nzSelected>option1</li>
-                  <li nz-menu-item>option2</li>
-                  <li nz-menu-item>option3</li>
-                  <li nz-menu-item>option4</li>
-                  <li nz-menu-item>option5</li>
-                  <li nz-menu-item>option6</li>
-                  <li nz-menu-item>option7</li>
-                  <li nz-menu-item>option8</li>
+                <ul *ngFor="let history of histories">
+                  <li nz-menu-item (click)="showHistory(history)">{{history.timeStamp}}</li>
                 </ul>
               </li>
             </ul>
@@ -63,5 +56,15 @@
           </nz-content>
         </nz-layout>
     </nz-layout>
+  </ng-container>
+</nz-modal>
+
+
+<nz-modal [(nzVisible)]="historyModal" [nzTitle]="historyDate" nzCentered (nzOnCancel)="closeModal('history')" (nzOnOk)="closeModal('history')">
+  <ng-container *nzModalContent>
+    <h4 nz-typography>Original Text: </h4>
+    <p nz-typography nzCopyable [(nzContent)]="historyOriginalText"></p>
+    <h4 nz-typography>Updated Text: </h4>
+    <p nz-typography nzCopyable [(nzContent)]="historyUpdatedText"></p>
   </ng-container>
 </nz-modal>
