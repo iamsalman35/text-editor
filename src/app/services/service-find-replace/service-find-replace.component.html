@@ -31,7 +31,7 @@
                   <div nz-col class="gutter-row" [nzSpan]="12">
                     <div style="border: 1px solid lightgrey;" class="grid-config">
                       <nz-input-group [nzSuffix]="textAreaClearTpl" class="full-width-height">
-                        <textarea nz-input [(ngModel)]="textValue" (ngModelChange)="getUpdatedString()" placeholder="Enter your text"></textarea>
+                        <textarea nz-input [(ngModel)]="textValue" (ngModelChange)="this.updatedText = this.textValue;" placeholder="Enter your text"></textarea>
                       </nz-input-group>
                       <ng-template #textAreaClearTpl>
                         <span *ngIf="textValue" nz-icon class="ant-input-clear-icon" nzTheme="fill" nzType="close-circle" (click)="textValue = null"></span>

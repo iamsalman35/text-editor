@@ -4,6 +4,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { CommonModule } from '@angular/common';
 import { NzButtonModule, NzButtonSize } from 'ng-zorro-antd/button';
 import { ServiceFindReplaceComponent } from "./service-find-replace/service-find-replace.component";
+import { Service } from './utils';
+import { servicesSubscription } from './utils';
 
 @Component({
   selector: 'app-services',
@@ -14,16 +16,18 @@ import { ServiceFindReplaceComponent } from "./service-find-replace/service-find
 export class ServicesComponent {
   featureSize: NzButtonSize = 'small';
   openFindReplace = false;
-  services = [
-    {serviceName: 'Find & Replace Tool', serviceShortDesc: 'Find and Replace single or multiple occurences of text.', features: ['Autosave', 'Show Live Changes', 'Regex Support', 'History of Replacements'], functionName: 'frl', icon: 'plus-circle', active: true},
-    {serviceName: 'Text Comparator', serviceShortDesc: 'Compare two different texts and get various insights', features: ['Show Hits in Green', 'Show Misses in Red', 'History of Comparisons'], functionName: 'tcr', icon: 'question-circle', active: false}
-  ]
+  services: Service[];
+
+  constructor(){
+    this.services = servicesSubscription;
+  }
 
   openFindReplaceModal(service: string){
     if(service == 'frl'){
       this.openFindReplace = true;
     }
     else if(service == 'tcr'){
+      //Not Implemented, exists only as a placeholder
     }
   }
 }
