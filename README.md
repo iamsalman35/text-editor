@@ -11,6 +11,26 @@ Built using **Angular** and **ng-zorro (Ant Design)** for UI elements like butto
 
 ---
 
+## Requirements
+
+Before running the project, ensure that you have the following installed:
+
+- **Node.js** (Recommended version: v16.x.x or higher)
+- **Angular CLI**: You can install it globally via npm if it's not already installed:
+  
+  ```bash
+  npm install -g @angular/cli
+
+
+## Running the project
+1. **Clone the repository**: git clone https://github.com/iamsalman35/text-editor.git
+2. **Navigate to the folder**: cd text-editor
+3. **Install dependencies**: npm install
+4. **Start the server**: ng serve
+
+
+
+
 ## Steps to Use the Find & Replace Tool:
 
 1. **Open the Tool**: Click on the Find & Replace Tool to open the main modal.
