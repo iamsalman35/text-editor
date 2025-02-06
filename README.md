@@ -24,18 +24,26 @@ Before running the project, ensure that you have the following installed:
 
 ## Running the project
 1. **Clone the repository**: 
+  
   ```bash
   git clone https://github.com/iamsalman35/text-editor.git
+
+
 2. **Navigate to the folder**:
+  
   ```bash
   cd text-editor
+
+
 3. **Install dependencies**:
+  
   ```bash
   npm install
+
+
 4. **Start the server**:
   ```bash
   ng serve
-
 
 
 
