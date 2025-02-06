@@ -209,3 +209,8 @@ p span.highlight {
       padding: 10px;
   }
 }
+
+.updated-text-section{
+  border: 1px solid lightgrey;
+  overflow-y: auto
+}

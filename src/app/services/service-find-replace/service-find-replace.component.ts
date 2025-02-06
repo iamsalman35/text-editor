@@ -18,10 +18,11 @@ import { CommonModule } from '@angular/common';
 })
 export class ServiceFindReplaceComponent {
   findWord: string | null = null;
+  wordOccurrences : number = 0;
   replaceWord: string | null = null;
   inputValue: string | null = null;
   textValue: string | null = null;
-  findExact = false; replaceNext = false; replaceAll = false;
+  findExact = false; findRegEx = false; replaceNext = false; replaceAll = false;
   goPrev: string | null = null; goNext: string | null = null;
   updatedText: string | null = null;
   @Input() findAndReplaceModal = false;
@@ -67,27 +68,44 @@ export class ServiceFindReplaceComponent {
       if (element) {
         element.innerHTML = this.textValue;
       }
+      this.wordOccurrences  = 0;
+      this.findWord = null;
     }
   }
 
   findText(): string {
+    this.wordOccurrences = 0;
     if (!this.updatedText) return '';
+  
     let modifiedText = this.updatedText;
+    let regex: RegExp;
+  
     if (this.findWord) {
-      const regex = this.findExact
-        ? new RegExp(`\\b${this.findWord}\\b`, 'g') 
-        : new RegExp(this.findWord, 'gi');
-  
-      modifiedText = modifiedText.replace(regex, match => {
-        if (this.findWord && this.replaceWord) {
-          return `<span nz-typography><del><mark>${match}</mark></del></span> &nbsp;<span nz-typography><strong>${this.replaceWord}</strong></span>`;
+      try {
+        if (this.findRegEx) {
+          regex = new RegExp(this.findWord, 'g'); 
+        } else {
+          regex = this.findExact 
+            ? new RegExp(`\\b${this.findWord}\\b`, 'g') 
+            : new RegExp(this.findWord, 'gi');
         }
+        
+        modifiedText = modifiedText.replace(regex, match => {
+          this.wordOccurrences++;
+          if (this.findWord && this.replaceWord) {
+            return `<span nz-typography><del><mark>${match}</mark></del></span> &nbsp;<span nz-typography><strong>${this.replaceWord}</strong></span>`;
+          }
+          return `<span nz-typography><mark>${match}</mark></span>`;
+        });
   
-        return `<span nz-typography><mark>${match}</mark></span>`;
-      });
+      } catch (error) {
+        console.error("Invalid regex provided:", error);
+        return modifiedText;
+      }
     }
   
     return modifiedText;
   }
+  
   
 }

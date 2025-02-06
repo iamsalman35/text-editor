@@ -23,7 +23,8 @@
               <input type="text" [(ngModel)]="findWord" nz-input placeholder="Find/Find All" />
             </nz-input-group>
             <ng-template #suffixFind>
-              <nz-icon nz-tooltip nzTooltipTitle="Find Exact + Case Sensitive" [ngClass]="findExact ? 'selected-btn' : 'unselected-btn'" (click)="findExact = !findExact" nzType="font-colors" />
+              <nz-icon nz-tooltip nzTooltipTitle="Regular Expression" (click)="findRegEx = !findRegEx; findExact = false" [ngClass]="findRegEx ? 'selected-btn' : 'unselected-btn'" nzType="field-string" nzTheme="outline" />
+              <nz-icon nz-tooltip nzTooltipTitle="Find Exact + Case Sensitive" [ngClass]="findExact ? 'selected-btn' : 'unselected-btn'" (click)="findExact = !findExact; findRegEx = false" nzType="font-colors" />
             </ng-template>
             <nz-input-group [nzSuffix]="suffixReplace">
               <input type="text" [(ngModel)]="replaceWord" nz-input placeholder="Replace/Replace All" />
@@ -33,7 +34,6 @@
               <nz-icon nz-tooltip nzTooltipTitle="Next Match"  (click)="toggleWord('next')" nzType="down" />
               <nz-icon nz-tooltip nzTooltipTitle="Replace All" class="selected-btn-instant" (click)="replaceText()" nzType="double-right" />
             </ng-template>
-
             <nz-layout class="inner-content2">
               <nz-content>
                 <div nz-row [nzGutter]="[1, 50]"> 
@@ -49,7 +49,7 @@
                   </div>
                   
                   <div nz-col class="gutter-row" [nzSpan]="12">
-                    <div style="border: 1px solid lightgrey;" class="grid-config">
+                    <div class="grid-config updated-text-section">
                       <ng-container *ngIf="!textValue; else elseBlock">
                         <p class="text-val">Please enter some text on the left to continue.</p>
                       </ng-container>
