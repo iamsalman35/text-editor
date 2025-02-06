@@ -113,7 +113,7 @@ p span.highlight {
 }
 
 ::ng-deep mark {
-  background-color: #f1e5a8 !important;
+  background-color: yellow;
   color: black;
 }
 
@@ -218,4 +218,9 @@ p span.highlight {
 .word-count{
   position: fixed;
   margin-top: 29rem;
+}
+
+.active-match {
+  background-color: orange !important;
+  border: 2px solid red;
 }

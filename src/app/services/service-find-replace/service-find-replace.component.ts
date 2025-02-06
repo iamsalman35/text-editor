@@ -9,103 +9,123 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-service-find-replace',
-  imports: [CommonModule, NzButtonModule, NzModalModule, NzLayoutModule, NzMenuModule, FormsModule, NzButtonModule, NzInputModule, NzIconModule, NzGridModule, NzToolTipModule],
+  imports: [
+    CommonModule,
+    NzButtonModule,
+    NzModalModule,
+    NzLayoutModule,
+    NzMenuModule,
+    FormsModule,
+    NzButtonModule,
+    NzInputModule,
+    NzIconModule,
+    NzGridModule,
+    NzToolTipModule,
+  ],
   templateUrl: './service-find-replace.component.html',
-  styleUrl: './service-find-replace.component.css'
+  styleUrl: './service-find-replace.component.css',
 })
 export class ServiceFindReplaceComponent {
   findWord: string | null = null;
-  wordOccurrences : number = 0;
+  wordOccurrences: number = 0;
   replaceWord: string | null = null;
-  inputValue: string | null = null;
   textValue: string | null = null;
-  findExact = false; findRegEx = false; replaceNext = false; replaceAll = false;
-  goPrev: string | null = null; goNext: string | null = null;
+  findExact = false;
+  findRegEx = false;
+  replaceNext = false;
+  replaceAll = false;
   updatedText: string | null = null;
   @Input() findAndReplaceModal = false;
-  @Output() findAndReplaceClosed : EventEmitter<any> = new EventEmitter();;
+  @Output() findAndReplaceClosed: EventEmitter<any> = new EventEmitter();
 
-  handleOkMiddle(): void {
+  constructor(private sanitizer: DomSanitizer) {}
+
+  closeModal(): void {
     this.findAndReplaceModal = false;
+    this.clearForm();
     this.findAndReplaceClosed.emit();
   }
 
-  handleCancelMiddle(): void {
-    this.findAndReplaceModal = false;
-    this.findAndReplaceClosed.emit();
-  }
-
-  getUpdatedString(){
+  getUpdatedString() {
     this.updatedText = this.textValue;
-    console.log(this.updatedText)
   }
 
-  toggleWord(method: string){
-
-  }
-
-  replaceText(){
-    this.replaceAll = !this.replaceAll; 
+  replaceText() {
+    this.replaceAll = !this.replaceAll;
     this.replaceNext = false;
     const icon = document.querySelector('.selected-btn-instant');
     if (icon) {
       icon.classList.add('clicked');
       setTimeout(() => {
         icon.classList.remove('clicked');
-      }, 300); 
+      }, 300);
     }
     if (this.findWord && this.updatedText) {
       let modifiedText = this.updatedText;
-      const regex = this.findExact? new RegExp(`\\b${this.findWord}\\b`, 'g'): new RegExp(this.findWord, 'gi');
-      //ADD HISTORY HERE
-      //CHANGE ORIGINAL TEXT
-      this.textValue = modifiedText.replace(regex, match => `${this.replaceWord}`);
+      let regex;
+      regex = this.findRegEx? new RegExp(this.findWord, 'g'): this.findExact? new RegExp(`\\b${this.findWord}\\b`, 'g'): new RegExp(this.findWord, 'gi');
+      this.textValue = modifiedText.replace(regex, (match) => `${this.replaceWord}`
+      );
       this.updatedText = this.textValue;
       const element = document.getElementById('updated-text');
       if (element) {
         element.innerHTML = this.textValue;
       }
-      this.wordOccurrences  = 0;
+      this.wordOccurrences = 0;
       this.findWord = null;
     }
   }
 
-  findText(): string {
+  highlightFindAndReplaceAll(word: string){
+    if (this.findWord && this.replaceWord) {
+      return `<span nz-typography><del><mark>${word}</mark></del></span> &nbsp;<span nz-typography><strong>${this.replaceWord}</strong></span>`
+    }
+    return `<span nz-typography><mark>${word}</mark></span>`
+  }
+
+  findWithoutRegEx(modifiedText: string): string {
+      if (!this.findWord) { return ""; }
+      const regex = this.findExact? new RegExp(`\\b${this.findWord}\\b`, 'g'): new RegExp(this.findWord, 'gi');
+
+      return (modifiedText = modifiedText.replace(regex, (match, offset) => {
+        return this.highlightFindAndReplaceAll(match);
+      }));
+  }
+
+  findUsingRegEx(modifiedText: string): string {
+    if(!this.findWord){ return ""; }
+    const regex = new RegExp(this.findWord, 'g');
+    return (modifiedText = modifiedText.replace(regex, (match, offset) => {
+      return this.highlightFindAndReplaceAll(match);
+    }));
+  }
+
+  findText(): SafeHtml {
     this.wordOccurrences = 0;
     if (!this.updatedText) return '';
-  
+
     let modifiedText = this.updatedText;
-    let regex: RegExp;
-  
-    if (this.findWord) {
-      try {
-        if (this.findRegEx) {
-          regex = new RegExp(this.findWord, 'g'); 
+
+      if (this.findWord) {
+        if (!this.findRegEx) {
+          modifiedText = this.findWithoutRegEx(modifiedText);
         } else {
-          regex = this.findExact 
-            ? new RegExp(`\\b${this.findWord}\\b`, 'g') 
-            : new RegExp(this.findWord, 'gi');
+          modifiedText = this.findUsingRegEx(modifiedText);
         }
-        
-        modifiedText = modifiedText.replace(regex, match => {
-          this.wordOccurrences++;
-          if (this.findWord && this.replaceWord) {
-            return `<span nz-typography><del><mark>${match}</mark></del></span> &nbsp;<span nz-typography><strong>${this.replaceWord}</strong></span>`;
-          }
-          return `<span nz-typography><mark>${match}</mark></span>`;
-        });
-  
-      } catch (error) {
-        console.error("Invalid regex provided:", error);
-        return modifiedText;
       }
-    }
-  
-    return modifiedText;
+    return this.sanitizer.bypassSecurityTrustHtml(modifiedText);
   }
-  
+
+  clearForm(){
+    this.textValue = null;
+    this.updatedText = null;
+    this.findWord = null;
+    this.replaceWord = null;
+  }
+
   // TEST REGEX: ([A-Z])\w+
 }

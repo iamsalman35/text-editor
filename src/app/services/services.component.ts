@@ -15,7 +15,7 @@ export class ServicesComponent {
   featureSize: NzButtonSize = 'small';
   openFindReplace = false;
   services = [
-    {serviceName: 'Find & Replace Tool', serviceShortDesc: 'Find and Replace single or multiple occurences of text.', features: ['Autosave', 'Count Occurences', 'Regex Support', 'History of Replacements'], functionName: 'frl', icon: 'plus-circle', active: true},
+    {serviceName: 'Find & Replace Tool', serviceShortDesc: 'Find and Replace single or multiple occurences of text.', features: ['Autosave', 'Show Live Changes', 'Regex Support', 'History of Replacements'], functionName: 'frl', icon: 'plus-circle', active: true},
     {serviceName: 'Text Comparator', serviceShortDesc: 'Compare two different texts and get various insights', features: ['Show Hits in Green', 'Show Misses in Red', 'History of Comparisons'], functionName: 'tcr', icon: 'question-circle', active: false}
   ]
 

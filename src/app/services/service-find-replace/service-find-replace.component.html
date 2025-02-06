@@ -1,4 +1,4 @@
-<nz-modal [(nzVisible)]="findAndReplaceModal" nzTitle="Find & Replace Tool" nzWidth="80vw" [nzBodyStyle]="{ height: '50vh', padding: '20px' }" nzCentered (nzOnCancel)="handleCancelMiddle()" (nzOnOk)="handleOkMiddle()">
+<nz-modal [(nzVisible)]="findAndReplaceModal" nzTitle="Find & Replace Tool" nzWidth="80vw" [nzBodyStyle]="{ height: '50vh', padding: '20px' }" nzCentered (nzOnCancel)="closeModal()" (nzOnOk)="closeModal()">
   <ng-container class="modal-content" *nzModalContent>
     <nz-layout>
         <nz-layout class="inner-layout">
@@ -20,18 +20,16 @@
           </nz-sider>
           <nz-content class="inner-content1">
             <nz-input-group [nzSuffix]="suffixFind">
-              <input type="text" [(ngModel)]="findWord" nz-input placeholder="Find/Find All" />
+              <input type="text" [(ngModel)]="findWord" nz-input placeholder="Find Exact/Find All" />
             </nz-input-group>
             <ng-template #suffixFind>
               <nz-icon nz-tooltip nzTooltipTitle="Regular Expression" (click)="findRegEx = !findRegEx; findExact = false" [ngClass]="findRegEx ? 'selected-btn' : 'unselected-btn'" nzType="field-string" nzTheme="outline" />
               <nz-icon nz-tooltip nzTooltipTitle="Find Exact + Case Sensitive" [ngClass]="findExact ? 'selected-btn' : 'unselected-btn'" (click)="findExact = !findExact; findRegEx = false" nzType="font-colors" />
             </ng-template>
             <nz-input-group [nzSuffix]="suffixReplace">
-              <input type="text" [(ngModel)]="replaceWord" nz-input placeholder="Replace/Replace All" />
+              <input type="text" [(ngModel)]="replaceWord" nz-input placeholder="Replace All Occurences" />
             </nz-input-group>
             <ng-template #suffixReplace>
-              <nz-icon nz-tooltip nzTooltipTitle="Previous Match" (click)="toggleWord('prev')" nzType="up" />
-              <nz-icon nz-tooltip nzTooltipTitle="Next Match"  (click)="toggleWord('next')" nzType="down" />
               <nz-icon nz-tooltip nzTooltipTitle="Replace All" class="selected-btn-instant" (click)="replaceText()" nzType="double-right" />
             </ng-template>
             <nz-layout class="inner-content2">
