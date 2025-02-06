@@ -11,7 +11,7 @@ Built using **Angular** and **ng-zorro (Ant Design)** for UI elements like butto
 
 ---
 
-## Requirements
+## Running the Project
 
 Before running the project, ensure that you have the following installed:
 
@@ -24,8 +24,6 @@ Before running the project, ensure that you have the following installed:
   cd text-editor
   npm install
   ng serve
-
-
 
 ## Steps to Use the Find & Replace Tool:
 
