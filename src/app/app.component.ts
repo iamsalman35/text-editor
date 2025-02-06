@@ -9,5 +9,5 @@ import { ServicesComponent } from './services/services.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'conceptile-editor';
+  title = 'text-editor';
 }
