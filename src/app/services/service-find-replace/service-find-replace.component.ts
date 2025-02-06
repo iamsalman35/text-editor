@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { History } from '../utils';
 import { historiesSubscription } from '../utils';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-service-find-replace',
@@ -50,7 +51,7 @@ export class ServiceFindReplaceComponent implements AfterViewChecked{
   historyUpdatedText: string | undefined = undefined;
   historyDate: string | undefined = undefined;
   
-  constructor(private sanitizer: DomSanitizer, private cdr: ChangeDetectorRef) {
+  constructor(private sanitizer: DomSanitizer, private cdr: ChangeDetectorRef, private message: NzMessageService) {
     this.histories = historiesSubscription;
   }
 
@@ -161,6 +162,7 @@ export class ServiceFindReplaceComponent implements AfterViewChecked{
       }
       //Reset word occurences.
       this.wordOccurrences = 0;
+      this.message.create('success', `Data saved successfully in History.`);
     }
   }
 

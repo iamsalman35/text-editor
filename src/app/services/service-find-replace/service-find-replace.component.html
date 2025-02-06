@@ -1,8 +1,8 @@
 <nz-modal [(nzVisible)]="findAndReplaceModal" nzTitle="Find & Replace Tool" nzWidth="80vw"
-  [nzBodyStyle]="{ height: '60vh', padding: '20px' }" nzCentered (nzOnCancel)="closeModal()" (nzOnOk)="closeModal()">
+  [nzBodyStyle]="{ height: '70vh', padding: '20px' }" nzCentered (nzOnCancel)="closeModal()" (nzOnOk)="closeModal()">
   <ng-container class="modal-content" *nzModalContent>
     <nz-layout class="inner-layout">
-      <nz-sider nzWidth="200px" nzTheme="light">
+      <nz-sider style="height: 30vh; overflow-y: auto;" nzWidth="200px" nzTheme="light">
         <ul nz-menu nzMode="inline" class="sider-menu">
           <li nz-submenu nzOpen nzTitle="History" nzIcon="user">
             <ul *ngFor="let history of histories">

@@ -157,7 +157,7 @@ p span.highlight {
 .word-count{
   position: relative;
   z-index: 999;
-  margin-top: 29rem;
+  margin-top: 35%;
 }
 
 .active-match {
