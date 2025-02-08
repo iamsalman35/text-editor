@@ -1,5 +1,6 @@
 # Find & Replace Tool
-
+  **Application URL**: https://text-editor-rho-pink.vercel.app/
+  
 This tool allows users to find and replace words or phrases in a given text with ease. The features include:
 
 1. **Exact Match or Regex Search**: Search for words or phrases using exact matches or regular expressions.
